@@ -15,7 +15,6 @@
     <PackageReference Include="Volo.Abp.Caching" Version="3.0.4" />
 
     <ProjectReference Include="..\Yomi.Blog.Application.Contracts\Yomi.Blog.Application.Contracts.csproj" />
-    <ProjectReference Include="..\Yomi.Blog.ToolKits\Yomi.Blog.ToolKits.csproj" />
   </ItemGroup>
 
 </Project>

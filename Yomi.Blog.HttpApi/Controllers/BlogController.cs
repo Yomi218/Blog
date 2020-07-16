@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 using Yomi.Blog.Application.Blog;
 using Yomi.Blog.Application.Contracts.Blog;
+using Yomi.Blog.ToolKits.Base;
 
 namespace Yomi.Blog.HttpApi.Controllers
 {
@@ -22,25 +23,25 @@ namespace Yomi.Blog.HttpApi.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> InsertPostAsync([FromBody] PostDto dto)
+        public async Task<ServiceResult<string>> InsertPostAsync([FromBody] PostDto dto)
         {
             return await _blogService.InsertPostAsync(dto);
         }
 
         [HttpDelete]
-        public async Task<bool> DeletePostAsync([Required] int id)
+        public async Task<ServiceResult> DeletePostAsync([Required] int id)
         {
             return await _blogService.DeletePostAsync(id);
         }
 
         [HttpPut]
-        public async Task<bool> UpdatePostAsync([Required] int id, [FromBody] PostDto dto)
+        public async Task<ServiceResult<string>> UpdatePostAsync([Required] int id, [FromBody] PostDto dto)
         {
             return await _blogService.UpdatePostAsync(id, dto);
         }
 
         [HttpGet]
-        public async Task<PostDto> GetPostAsync([Required] int id)
+        public async Task<ServiceResult<PostDto>> GetPostAsync([Required] int id)
         {
             return await _blogService.GetPostAsync(id);
         }

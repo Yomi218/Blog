@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Yomi.Blog.Application.Contracts.Blog;
 using Yomi.Blog.Domain.Blog;
 using Yomi.Blog.Domain.Blog.Repositories;
+using Yomi.Blog.ToolKits.Base;
 
 namespace Yomi.Blog.Application.Blog.Impl
 {
@@ -17,8 +18,10 @@ namespace Yomi.Blog.Application.Blog.Impl
             _postRepository = postRepository;
         }
 
-        public async Task<bool> InsertPostAsync(PostDto dto)
+        public async Task<ServiceResult<string>> InsertPostAsync(PostDto dto)
         {
+            var result = new ServiceResult<string>();
+
             var entity = new Post
             {
                 Title = dto.Title,
@@ -31,19 +34,36 @@ namespace Yomi.Blog.Application.Blog.Impl
             };
 
             var post = await _postRepository.InsertAsync(entity);
-            return post != null;
+
+            if(post==null)
+            {
+                result.IsFailed("添加失败");
+                return result;
+            }
+            result.IsFailed("添加成功");
+            return result;
         }
 
-        public async Task<bool> DeletePostAsync(int id)
+        public async Task<ServiceResult> DeletePostAsync(int id)
         {
+            var result = new ServiceResult();
+
             await _postRepository.DeleteAsync(id);
-            return true;
+
+            return result;
         }
 
-        public async Task<bool> UpdatePostAsync(int id, PostDto dto)
+        public async Task<ServiceResult<string>> UpdatePostAsync(int id, PostDto dto)
         {
+            var result = new ServiceResult<string>();
+
             var post = await _postRepository.GetAsync(id);
-            var post2 = await _postRepository.FindAsync(id);
+
+            if (post == null)
+            {
+                result.IsFailed("文章不存在");
+                return result;
+            }
 
             post.Title = dto.Title;
             post.Author = dto.Author;
@@ -54,14 +74,23 @@ namespace Yomi.Blog.Application.Blog.Impl
             post.CreationTime = dto.CreationTime;
 
             await _postRepository.UpdateAsync(post);
-            return true;
+
+            result.IsSuccess("更新成功");
+            return result;
         }
 
-        public async Task<PostDto> GetPostAsync(int id)
+        public async Task<ServiceResult<PostDto>> GetPostAsync(int id)
         {
-            var post = await _postRepository.GetAsync(id);
+            var result = new ServiceResult<PostDto>();
 
-            return new PostDto
+            var post = await _postRepository.GetAsync(id);
+            if (post == null)
+            {
+                result.IsFailed("文章不存在");
+                return result;
+            }
+
+            var dto = new PostDto
             {
                 Author = post.Author,
                 CategoryId = post.CategoryId,
@@ -71,6 +100,9 @@ namespace Yomi.Blog.Application.Blog.Impl
                 Title = post.Title,
                 Url = post.Url
             };
+
+            result.IsSuccess(dto);
+            return result;
         }
     }
 }

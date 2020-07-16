@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Yomi.Blog.Application.Caching\Yomi.Blog.Application.Caching.csproj" />
+    <ProjectReference Include="..\Yomi.Blog.ToolKits\Yomi.Blog.ToolKits.csproj" />
   </ItemGroup>
 
 </Project>
