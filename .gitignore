@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Yomi.Blog.HttpApi.Hosting/Yomi.Blog.Application.Caching.xml
