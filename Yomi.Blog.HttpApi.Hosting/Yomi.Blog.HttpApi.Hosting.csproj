@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Logs\**" />
+    <Content Remove="Logs\**" />
+    <EmbeddedResource Remove="Logs\**" />
+    <None Remove="Logs\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yomi.Blog.EntityFrameworkCore\Yomi.Blog.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Yomi.Blog.HttpApi\Yomi.Blog.HttpApi.csproj" />
+    <ProjectReference Include="..\Yomi.Blog.Swagger\Yomi.Blog.Swagger.csproj" />
+    <PackageReference Include="Volo.Abp.Autofac" Version="3.0.4" />
+  </ItemGroup>
+
+</Project>
