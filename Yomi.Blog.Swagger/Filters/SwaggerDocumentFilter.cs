@@ -24,6 +24,12 @@ namespace Yomi.Blog.Swagger.Filters
                     {
                         Description="包含：文章/标签/分类/友情链接"
                     }
+                },
+                new OpenApiTag
+                {
+                    Name="Auth",
+                    Description="JWT模式认证授权",
+                    ExternalDocs=new OpenApiExternalDocs{Description="JSON Web Token"}
                 }
             };
 

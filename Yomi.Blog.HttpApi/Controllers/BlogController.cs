@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
@@ -21,6 +22,7 @@ namespace Yomi.Blog.HttpApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ApiExplorerSettings(GroupName =Grouping.GroupName_v1)]
         public async Task<ServiceResult<string>> InsertPostAsync([FromBody] PostDto dto)
         {
@@ -28,6 +30,7 @@ namespace Yomi.Blog.HttpApi.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [ApiExplorerSettings(GroupName = Grouping.GroupName_v1)]
         public async Task<ServiceResult> DeletePostAsync([Required] int id)
         {
@@ -35,6 +38,7 @@ namespace Yomi.Blog.HttpApi.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [ApiExplorerSettings(GroupName = Grouping.GroupName_v1)]
         public async Task<ServiceResult<string>> UpdatePostAsync([Required] int id, [FromBody] PostDto dto)
         {

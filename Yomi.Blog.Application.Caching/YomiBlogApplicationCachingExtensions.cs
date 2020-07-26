@@ -1,0 +1,25 @@
+﻿using Microsoft.Extensions.Caching.Distributed;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Yomi.Blog.Application.Caching
+{
+    public static class YomiBlogApplicationCachingExtensions
+    {
+        //public static async Task<TCacheItem> GetOrAddAsync<TCacheItem>(this IDistributedCache cache,string key,Func<Task<TCacheItem>> factory,int minutes)
+        //{
+        //    TCacheItem cacheItem;
+
+        //    var result = await cache.GetStringAsync(key);
+        //    if (string.IsNullOrEmpty(result))
+        //    {
+        //        cacheItem = await factory.Invoke();
+
+        //        var options = new DistributedCacheEntryOptions();
+        //        if(minutes!= CacheStrategy)
+        //    }
+        //}
+    }
+}

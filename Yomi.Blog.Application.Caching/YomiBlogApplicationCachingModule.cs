@@ -6,7 +6,7 @@ namespace Yomi.Blog.Application.Caching
 {
     [DependsOn(typeof(AbpCachingModule),
         typeof(YomiBlogDomainModule))]
-    public class YomiBlogApplicationCachingModule:AbpModule
+    public class YomiBlogApplicationCachingModule : AbpModule
     {
         public override void ConfigureServices(ServiceConfigurationContext context)
         {
