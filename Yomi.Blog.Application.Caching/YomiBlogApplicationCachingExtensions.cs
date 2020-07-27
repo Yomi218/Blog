@@ -3,23 +3,36 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Yomi.Blog.Domain.Shared;
+using Yomi.Blog.ToolKits.Extensions;
 
 namespace Yomi.Blog.Application.Caching
 {
     public static class YomiBlogApplicationCachingExtensions
     {
-        //public static async Task<TCacheItem> GetOrAddAsync<TCacheItem>(this IDistributedCache cache,string key,Func<Task<TCacheItem>> factory,int minutes)
-        //{
-        //    TCacheItem cacheItem;
+        public static async Task<TCacheItem> GetOrAddAsync<TCacheItem>(this IDistributedCache cache, string key, Func<Task<TCacheItem>> factory, int minutes)
+        {
+            TCacheItem cacheItem;
 
-        //    var result = await cache.GetStringAsync(key);
-        //    if (string.IsNullOrEmpty(result))
-        //    {
-        //        cacheItem = await factory.Invoke();
+            var result = await cache.GetStringAsync(key);
+            if (string.IsNullOrEmpty(result))
+            {
+                cacheItem = await factory.Invoke();
 
-        //        var options = new DistributedCacheEntryOptions();
-        //        if(minutes!= CacheStrategy)
-        //    }
-        //}
+                var options = new DistributedCacheEntryOptions();
+                if (minutes != CacheStrategy.NEVER)
+                {
+                    options.AbsoluteExpiration = DateTimeOffset.Now.AddMinutes(minutes);
+                }
+
+                await cache.SetStringAsync(key, cacheItem.ToJson(), options);
+            }
+            else
+            {
+                cacheItem = result.FromJson<TCacheItem>();
+            }
+
+            return cacheItem;
+        }
     }
 }

@@ -26,6 +26,6 @@ namespace Yomi.Blog.Application.Caching.Authorize
         /// <param name="access_token"></param>
         /// <param name="factory"></param>
         /// <returns></returns>
-        //Task<ServiceResult<string>> GenerateTokenAsync(string access_token, Func<Task<ServiceResult<string>>> factory);
+        Task<ServiceResult<string>> GenerateTokenAsync(string access_token, Func<Task<ServiceResult<string>>> factory);
     }
 }
